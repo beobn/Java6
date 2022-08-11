@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="en">
+<head>
+<title>Title</title>
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<!-- Bootstrap CSS v5.2.0-beta1 -->
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
+	integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor"
+	crossorigin="anonymous">
+
+</head>
+<body>
+	<div ng-controller="productController">
+		<!-- Button modal ADD -->
+		<button type="button" class="btn btn-success" data-bs-toggle="modal"
+			data-bs-target="#exampleModaladd" style="width: 100%">Thêm
+			Mới</button>
+		<!-- Modal ADD -->
+		<div class="modal fade" id="exampleModaladd" tabindex="-1"
+			aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">Thêm Mới</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal"
+							aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						<div class="mb-3">
+							<label for="" class="form-label">name</label> <input type="text"
+								ng-model="formadd.name" name="" id="" class="form-control"
+								placeholder="" aria-describedby="helpId">
+						</div>
+						<div class="mb-3">
+							<label for="" class="form-label">Price</label> <input type="text"
+								ng-model="formadd.price" name="" id="" class="form-control"
+								placeholder="" aria-describedby="helpId">
+						</div>
+						<div class="mb-3">
+							<label for="" class="form-label">Category</label> <select
+								class="form-control" ng-model="formadd.category.id">
+								<option ng-repeat="c in cates " ng-value="c.id">{{c.name}}</option>
+							</select>
+						</div>
+						<div class="mb-3">
+							<label for="" class="form-label">Creat date</label> <input
+								type="date" ng-model="formadd.createDate" name="" id=""
+								class="form-control" placeholder="" aria-describedby="helpId">
+						</div>
+						<div class="mb-3">
+							<label for="" class="form-label">IMG</label> <input type="file"
+								class="form-control" name="" id="image" placeholder=""
+								aria-describedby="fileHelpId"
+								onchange="angular.element(this).scope().imgchange(this.files)"
+								ng-model="formadd.image">
+						</div>
+						<div class="form-check">
+							<input class="form-check-input" ng-model="formadd.available"
+								type="radio" value="true" name="available" id="" checked>
+							<label class="form-check-label" for=""> Available true </label>
+						</div>
+						<div class="form-check">
+							<input class="form-check-input" ng-model="formadd.available"
+								value="false" type="radio" name="available" id=""> <label
+								class="form-check-label" for=""> Available false </label>
+						</div>
+
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary"
+							data-bs-dismiss="modal">Close</button>
+						<button type="button" class="btn btn-success" ng-click="create()"
+							data-bs-dismiss="modal">Thêm Mới</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Modal ADD END -->
+		<table class="table">
+			<thead>
+				<tr>
+					<th scope="col">id</th>
+					<th scope="col">Name Product</th>
+					<th scope="col">Price</th>
+					<th scope="col">Category</th>
+					<th scope="col">Create Date</th>
+					<th scope="col">Img</th>
+					<th scope="col">Available</th>
+					<th scope="col-2">ACT</th>
+				</tr>
+			</thead>
+			<tbody ng-repeat="prd in items">
+				<tr>
+					<td>{{prd.id}}</td>
+					<td>{{prd.name}}</td>
+					<td>{{prd.price|number:2}}</td>
+					<td>{{prd.category.name}}</td>
+					<td>{{prd.createDate|date:'dd-MM-yyyy'}}</td>
+					<td><img ng-src="{'/images/'+ items.image}"></td>
+					<td>{{prd.available?'YES':'NO'}}</td>
+					<td>
+						<!-- Button modal EDIT -->
+						<button type="button" class="btn btn-warning"
+							data-bs-toggle="modal"
+							data-bs-target="#exampleModaledit{{prd.id}}"
+							ng-click="formedit(prd.id)">Edit</button> <!-- Modal EDIT -->
+						<div class="modal fade" id="exampleModaledit{{prd.id}}"
+							tabindex="-1" aria-labelledby="exampleModalLabel"
+							aria-hidden="true">
+							<div class="modal-dialog">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h5 class="modal-title" id="exampleModalLabel">Edit</h5>
+										<button type="button" class="btn-close"
+											data-bs-dismiss="modal" aria-label="Close"></button>
+									</div>
+									<div class="modal-body">
+										<div class="mb-3">
+											<label for="" class="form-label">name</label> <input
+												type="text" ng-model="dataedit.name" name="" id=""
+												class="form-control" placeholder=""
+												aria-describedby="helpId">
+										</div>
+										<div class="mb-3">
+											<label for="" class="form-label">Price</label> <input
+												type="text" ng-model="dataedit.price" name="" id=""
+												class="form-control" placeholder=""
+												aria-describedby="helpId">
+										</div>
+										<div class="mb-3">
+											<label for="" class="form-label">Category</label> <select
+												class="form-control" ng-model="dataedit.category.id">
+												<option ng-repeat="c in cates " ng-value="c.id">{{c.name}}</option>
+											</select>
+										</div>
+										<div class="mb-3">
+											<label for="" class="form-label">Creat date</label> <input
+												type="date" ng-model="dataedit.createDate" name="" id=""
+												class="form-control" placeholder=""
+												aria-describedby="helpId">
+										</div>
+										<div class="mb-3">
+											<label for="" class="form-label">IMG</label> <input
+												type="file" class="form-control" name="" id="image"
+												placeholder="" aria-describedby="fileHelpId"
+												onchange="angular.element(this).scope().imgchange(this.files)"
+												ng-model="dataedit.image">
+										</div>
+										<div class="form-check">
+											<input class="form-check-input" ng-model="dataedit.available"
+												type="radio" value="true" name="available" id="" checked>
+											<label class="form-check-label" for=""> Available
+												true </label>
+										</div>
+										<div class="form-check">
+											<input class="form-check-input" ng-model="dataedit.available"
+												value="false" type="radio" name="available" id=""> <label
+												class="form-check-label" for=""> Available false </label>
+										</div>
+
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-secondary"
+											data-bs-dismiss="modal">Close</button>
+										<button type="button" class="btn btn-warning"
+											ng-click="update()" data-bs-dismiss="modal">Edit</button>
+									</div>
+								</div>
+							</div>
+						</div> <!-- Modal ADD EDIT --> <!-- Button modal DELETE -->
+						<button type="button" class="btn btn-danger"
+							data-bs-toggle="modal"
+							data-bs-target="#exampleModaldelete{{prd.id}}">
+							Delete</button> <!-- Modal DELETE -->
+						<div class="modal fade" id="exampleModaldelete{{prd.id}}"
+							tabindex="-1" aria-labelledby="exampleModalLabel"
+							aria-hidden="true">
+							<div class="modal-dialog">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h5 class="modal-title" id="exampleModalLabel">Delete</h5>
+										<button type="button" class="btn-close"
+											data-bs-dismiss="modal" aria-label="Close"></button>
+									</div>
+									<div class="modal-body">
+										<b>Bạn chắc chắn xóa chứ</b>
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-secondary"
+											data-bs-dismiss="modal">Close</button>
+										<button type="button" class="btn btn-danger"
+											ng-click="delete(prd.id)" data-bs-dismiss="modal">Delete</button>
+									</div>
+								</div>
+							</div>
+						</div> <!-- Modal AND DELETE -->
+					</td>
+				</tr>
+
+			</tbody>
+		</table>
+	</div>
+	<!-- Bootstrap JavaScript Libraries -->
+	<script
+		src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js"
+		integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk"
+		crossorigin="anonymous"></script>
+
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.min.js"
+		integrity="sha384-kjU+l4N0Yf4ZOJErLsIcvOU2qSb74wXpOhqTvwVx3OElZRweTnQ6d31fXEoRD1Jy"
+		crossorigin="anonymous"></script>
+</body>
+</html>

@@ -1,0 +1,18 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{/view/layout/index :: dynamic(~{::main})}">
+<body>
+	<main class="row" >
+		<div class="card col-sm-4" style="width: 18rem; margin-top: 10px; margin-left: 10px"  th:each="prd:${listPrd}" >
+			<img th:src="@{|/images/${prd.image}|}" class="card-img-top" alt="...">
+			<div class="card-body text-center" >
+				<h5 class="card-title text-center" th:text="${prd.name}"></h5>
+				<p class="card-text">Giá sản phẩm:<b> [[${prd.price}]]$ </b></p>
+				<a href="@{|/images/${prd.image}|}" class="btn btn-warning">Detail</a>
+				<a th:href="@{|/cart/add?idprd=${prd.id}|}" class="btn btn-success">Add card</a>
+			</div>
+			
+		</div>
+	</main>
+</body>
+</html>

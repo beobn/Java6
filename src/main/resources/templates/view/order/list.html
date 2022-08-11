@@ -1,0 +1,28 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{/view/layout/index :: dynamic(~{::main})}">
+<body>
+	<main>
+		<table class="table">
+			<thead>
+				<tr>
+					<th scope="col">id</th>
+					<th scope="col">address</th>
+					<th scope="col">CreateDate</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody th:each="ord : ${listord}">
+				
+				<tr>
+					<th th:text="${ord.id}"></th>
+					<td th:text="${ord.address}"></td>
+					<td th:text="${#dates.format(ord.createDate, 'dd-MM-yyyy')}"></td>
+					<th > <a th:href="@{|/order/detail/${ord.id}|}" class="btn btn-warning">Detail</a></th>
+				</tr>
+				
+			</tbody>
+		</table>
+	</main>
+</body>
+</html>

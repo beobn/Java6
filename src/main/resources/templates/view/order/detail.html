@@ -1,0 +1,23 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{/view/layout/index :: dynamic(~{::main})}">
+<body>
+	<main>
+		<h1 class="text-center">Order Detail</h1>
+		<div style="font-size: 30px">
+		<b>Người nhận: </b> <span>[[${odd.order.account.fullname}]]</span>
+		<br>
+		<b>Địa chỉ: </b> <span>[[${odd.order.address}]]</span>
+		<br>
+		<div th:each="prdbuy : ${listodd}">
+		<b>Tên sản phẩm: </b> [[${prdbuy.product.name}]]
+		<br>
+		<b>Số lượng: </b> [[${prdbuy.quantity}]]  <b>Đơn giá: </b>[[${prdbuy.product.price}]] $<b>Tổng tiền: </b>[[${prdbuy.price}]] $
+		<br>
+		</div>
+		<b>Tổng tiền cần thanh toán: </b> [[${summoney}]] $
+		</div>
+	</main>
+	
+</body>
+</html>

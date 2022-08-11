@@ -1,0 +1,26 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{/view/layout/index :: dynamic(~{::main})}">
+
+<body>
+	<h2 class="text-center">Đăng Nhập</h2>
+	<main>
+		<form th:action="@{/security/login}" method="post">
+			<div class="mb-3">
+				<label for="" class="form-label">User Name</label>
+				<input type="text" name="username" id="" class="form-control" placeholder="" aria-describedby="helpId">
+			</div>
+			<div class="mb-3">
+				<label for="" class="form-label">Pass Word</label>
+				<input type="password" name="password" id="" class="form-control" placeholder=""
+					aria-describedby="helpId">
+			</div>
+			<div class="row">
+				<i class="text-danger" th:text="${message}"></i>
+				<button type="submit" class="btn btn-success">Đăng Nhập</button>
+			</div>
+		</form>
+
+	</main>
+</body>
+
+</html>

@@ -1,0 +1,75 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{/view/layout/index :: dynamic(~{::main})}">
+<body>
+	<main>
+		<div th:if="${listcart == null}" class="alert alert-warning"
+			role="alert" style="margin-top: 10px">Giỏ hàng trống bạn hãy
+			thêm sản phẩm</div>
+		<div th:if="${listcart!=null}">
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th scope="col">name</th>
+						<th scope="col">price</th>
+						<th scope="col">quantity</th>
+						<th scope="col">Sum Money</th>
+						<th colspan="2">ACT</th>
+					</tr>
+				</thead>
+				<tbody th:each="lc:${listcart}">
+					<tr>
+						<form th:action="@{|/cart/update/${lc.prd.id}|}" method="post">
+
+							<td th:text="${lc.prd.name}"></td>
+							<td th:text="${lc.prd.price}"></td>
+							<td><input type="number" min="1" max="10"
+								th:value="${lc.quantity}" name="quantity"></td>
+							<td th:text="${lc.prd.price * lc.quantity}+'$'"></td>
+							<td><a class="btn btn-danger"
+								th:href="@{|/cart/delete?idprd=${lc.prd.id}|}">Delete</a></td>
+							<td>
+								<button class=" btn btn-warning" type="submit">Update
+									quantity</button>
+							</td>
+						</form>
+					</tr>
+
+
+				</tbody>
+			</table>
+		</div>
+		<a th:href="@{|/cart/delete|}" class="btn btn-danger">Delete all</a>
+		<!-- Button modal BUY-->
+		<button type="button" class="btn btn-success" data-bs-toggle="modal"
+			data-bs-target="#exampleModal">Buy Now</button>
+		<!-- Modal BUY-->
+		<div class="modal fade" id="exampleModal" tabindex="-1"
+			aria-labelledby="exampleModal" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">Thông tin nhận
+							hàng</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal"
+							aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						<form th:action="@{|/order/add/${#request.remoteUser}|}"
+							method="post">
+							<div class="mb-3">
+								<label for="" class="form-label">Nhập địa chỉ giao hàng</label>
+								<input type="text" name="address" id="" class="form-control"
+									placeholder="" aria-describedby="helpId">
+							</div>
+							<button type="button" class="btn btn-secondary"
+								data-bs-dismiss="modal">Close</button>
+							<button type="submit" class="btn btn-success">Buy</button>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</main>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{/view/layout/index :: dynamic(~{::main})}">
+<body>
+	<main>
+		<div class="card mb-12" style="max-width: 100%;margin: 10px">
+			<div class="row g-0">
+				<div class="col-md-4">
+					<img th:src="@{|/images/${prdd.image}|}" class="img-fluid rounded-start" alt="...">
+				</div>
+				<div class="col-md-8">
+					<div class="card-body">
+						<h5 class="card-title">Tên sản phẩm: [[${prdd.name}]]</h5>
+						<p class="card-text">
+						Giá sản phẩm: [[${prdd.price}]]$
+						</p>
+						<p class="card-text">
+						loại sản phẩm: [[${prdd.categoryid}]]
+						</p>
+						<p class="card-text">
+						trạng thái: [[${prdd.available}]]
+						</p>
+						<p class="card-text">
+							<small class="text-muted">Cập nhập ngày [[${#dates.format(prdd.createDate, 'dd-MM-yyyy')}]]</small>
+						</p>
+						<a href="#" class="btn btn-success" style="float: right;">Add card</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</main>
+</body>
+</html>
